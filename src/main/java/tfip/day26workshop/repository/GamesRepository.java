@@ -45,12 +45,16 @@ public class GamesRepository {
     public Game getGameById(String gameId) {
         // if game not found return null
 
+        Query q = new Query();
+
+        if(ObjectId.isValid(gameId)) {
+            q.addCriteria(Criteria.where("_id").is(gameId));            
+        } else {
+            q.addCriteria(Criteria.where("gid").is(Integer.parseInt(gameId)));
+        }
+
         try {
-            Query q = new Query();
-            q.addCriteria(Criteria.where("_id").is(gameId));
             return mongo.find(q, Document.class, "games").stream().map(d -> Game.create(d)).findFirst().get();
-        } catch (IllegalArgumentException e) {
-            return null;
         } catch (NoSuchElementException e) {
             return null;
         }
