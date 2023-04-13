@@ -47,7 +47,7 @@ public class GamesRepository {
 
         try {
             Query q = new Query();
-            q.addCriteria(Criteria.where("_id").is(new ObjectId(gameId)));
+            q.addCriteria(Criteria.where("_id").is(gameId));
             return mongo.find(q, Document.class, "games").stream().map(d -> Game.create(d)).findFirst().get();
         } catch (IllegalArgumentException e) {
             return null;
