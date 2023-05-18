@@ -64,7 +64,7 @@ public class Games {
     // marshalling
     public JsonObject toJSON() {
         JsonArrayBuilder ab = Json.createArrayBuilder();
-        getGames().forEach(g -> ab.add(g.toJSONSummary()));
+        getGames().forEach(g -> ab.add(g.toJSON()));
 
         return Json.createObjectBuilder()
                 .add("games", ab)
